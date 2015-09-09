@@ -1,7 +1,7 @@
 package demo.services;
 
-import demo.representations.AccountRepresentation;
-import demo.representations.CreateAccountCommand;
+import demo.rest.resources.AccountResource;
+import demo.rest.resources.CreateAccountCommand;
 import demo.services.domain.accounts.Account;
 import demo.services.domain.accounts.AccountRepository;
 import demo.services.domain.shared.exceptions.BusinessException;
@@ -22,13 +22,13 @@ public class AccountService {
     private AccountMapper accountMapper;
 
     @Transactional(readOnly = true)
-    public List<AccountRepresentation> getAccounts() {
+    public List<AccountResource> getAccounts() {
         final List<Account> accounts = accountRepository.getAccounts();
         return accountMapper.mapAccounts(accounts);
     }
 
     @Transactional(readOnly = true)
-    public List<AccountRepresentation> getAccountRepresentations() {
+    public List<AccountResource> getAccountRepresentations() {
         return accountRepository.getAccountRepresentations();
     }
 

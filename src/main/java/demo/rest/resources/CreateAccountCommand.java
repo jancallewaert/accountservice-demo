@@ -1,4 +1,4 @@
-package demo.representations;
+package demo.rest.resources;
 
 import demo.services.domain.accounts.AccountType;
 

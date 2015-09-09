@@ -1,10 +1,10 @@
-package demo.representations;
+package demo.rest.resources;
 
-public class ErrorRepresentation {
+public class ErrorResource {
     private String id;
     private String message;
 
-    public ErrorRepresentation(String id, String message) {
+    public ErrorResource(String id, String message) {
         this.id = id;
         this.message = message;
     }

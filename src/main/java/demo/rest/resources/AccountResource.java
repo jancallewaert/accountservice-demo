@@ -1,4 +1,4 @@
-package demo.representations;
+package demo.rest.resources;
 
 import demo.services.domain.accounts.AccountType;
 import demo.services.domain.shared.MoneyAmount;
@@ -6,7 +6,7 @@ import demo.services.domain.shared.MoneyAmount;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountRepresentation {
+public class AccountResource {
     private String id;
     private String label;
     private AccountType type;

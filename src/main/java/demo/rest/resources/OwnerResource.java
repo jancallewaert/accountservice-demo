@@ -1,6 +1,6 @@
-package demo.representations;
+package demo.rest.resources;
 
-public class OwnerRepresentation {
+public class OwnerResource {
     private String id;
     private String firstName;
     private String name;

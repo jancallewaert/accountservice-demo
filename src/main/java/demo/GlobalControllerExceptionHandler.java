@@ -1,6 +1,6 @@
 package demo;
 
-import demo.representations.ErrorRepresentation;
+import demo.rest.resources.ErrorResource;
 import demo.services.domain.shared.exceptions.BusinessException;
 import demo.services.domain.shared.exceptions.ErrorCode;
 import demo.services.domain.shared.exceptions.ServiceException;
@@ -28,26 +28,26 @@ public class GlobalControllerExceptionHandler {
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BusinessException.class)
     @ResponseBody
-    public ErrorRepresentation handleBusinessException(BusinessException e) {
+    public ErrorResource handleBusinessException(BusinessException e) {
         LOGGER.info(e.getIdentifier() + " " + e.getErrorCode().name() + " " + e.getMessage(), e);
-        return new ErrorRepresentation(e.getIdentifier(), localizeMessage(e));
+        return new ErrorResource(e.getIdentifier(), localizeMessage(e));
     }
 
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(TechnicalException.class)
     @ResponseBody
-    public ErrorRepresentation handleTechnicalException(TechnicalException e) {
+    public ErrorResource handleTechnicalException(TechnicalException e) {
         LOGGER.error(e.getIdentifier() + " " + e.getErrorCode().name() + " " + e.getMessage(), e);
-        return new ErrorRepresentation(e.getIdentifier(), localizeMessage(e));
+        return new ErrorResource(e.getIdentifier(), localizeMessage(e));
     }
 
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public ErrorRepresentation handleUnknownException(Exception e) {
+    public ErrorResource handleUnknownException(Exception e) {
         final TechnicalException technicalException = new TechnicalException(ErrorCode.SERVICE_UNAVAILABLE);
         LOGGER.error(technicalException.getIdentifier() + " " + technicalException.getErrorCode().name() + " " + e.getMessage(), e);
-        return new ErrorRepresentation(technicalException.getIdentifier(), localizeMessage(technicalException));
+        return new ErrorResource(technicalException.getIdentifier(), localizeMessage(technicalException));
     }
 
     private String localizeMessage(ServiceException e) {

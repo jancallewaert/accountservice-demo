@@ -1,6 +1,6 @@
 package demo.services.domain.accounts;
 
-import demo.representations.AccountRepresentation;
+import demo.rest.resources.AccountResource;
 import demo.services.domain.shared.MoneyAmount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -31,15 +31,15 @@ public class AccountRepository {
         em.persist(account);
     }
 
-    public List<AccountRepresentation> getAccountRepresentations() {
-        final List<AccountRepresentation> representations = new ArrayList<>();
+    public List<AccountResource> getAccountRepresentations() {
+        final List<AccountResource> representations = new ArrayList<>();
         jdbcTemplate.query(
                 "select * from account a inner join account_owner_ids i on a.id = i.account_id order by a.id asc",
                 rs -> {
                     final String id = rs.getString("id");
-                    AccountRepresentation current;
+                    AccountResource current;
                     if (representations.isEmpty() || !representations.get(0).getId().equals(id)) {
-                        current = new AccountRepresentation();
+                        current = new AccountResource();
                         current.setId(id);
                         current.setLabel(rs.getString("label"));
                         current.setIban(rs.getString("iban"));

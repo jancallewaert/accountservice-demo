@@ -1,10 +1,9 @@
-package demo;
+package demo.rest;
 
-import demo.representations.AccountRepresentation;
+import demo.rest.resources.AccountResource;
+import demo.rest.resources.CreateAccountCommand;
 import demo.services.domain.accounts.AccountType;
-import demo.representations.CreateAccountCommand;
 import demo.services.domain.shared.MoneyAmount;
-import demo.representations.OwnerRepresentation;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,8 +25,8 @@ import java.util.UUID;
 public class AccountV2Controller {
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<AccountRepresentation>> list() {
-        final List<AccountRepresentation> accounts = createAccounts();
+    public ResponseEntity<List<AccountResource>> list() {
+        final List<AccountResource> accounts = createAccounts();
         return ResponseEntity.ok(accounts);
     }
 
@@ -37,9 +36,9 @@ public class AccountV2Controller {
         return ResponseEntity.created(new URI("http://localhost:8080/accounts/" + id)).build();
     }
 
-    private List<AccountRepresentation> createAccounts() {
-        final List<AccountRepresentation> accounts = new ArrayList<>();
-        final AccountRepresentation account = new AccountRepresentation();
+    private List<AccountResource> createAccounts() {
+        final List<AccountResource> accounts = new ArrayList<>();
+        final AccountResource account = new AccountResource();
         account.setId(UUID.randomUUID().toString());
         account.setLabel("Jan's zichtrekening");
         account.setType(AccountType.CHECKING);

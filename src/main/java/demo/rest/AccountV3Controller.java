@@ -1,11 +1,10 @@
-package demo;
+package demo.rest;
 
-import demo.representations.AccountRepresentation;
+import demo.rest.resources.AccountResource;
+import demo.rest.resources.CreateAccountCommand;
+import demo.rest.resources.ErrorResource;
 import demo.services.domain.accounts.AccountType;
-import demo.representations.CreateAccountCommand;
-import demo.representations.ErrorRepresentation;
 import demo.services.domain.shared.MoneyAmount;
-import demo.representations.OwnerRepresentation;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,15 +26,15 @@ import java.util.UUID;
 public class AccountV3Controller {
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<AccountRepresentation>> list() {
-        final List<AccountRepresentation> accounts = createAccounts();
+    public ResponseEntity<List<AccountResource>> list() {
+        final List<AccountResource> accounts = createAccounts();
         return ResponseEntity.ok(accounts);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> create(@RequestBody CreateAccountCommand createAccountCommand) throws URISyntaxException {
         if (!isValidCreateAccountCommand(createAccountCommand)) {
-            final ErrorRepresentation error = new ErrorRepresentation(UUID.randomUUID().toString(), "Information missing");
+            final ErrorResource error = new ErrorResource(UUID.randomUUID().toString(), "Information missing");
             return ResponseEntity.badRequest().body(error);
         }
 
@@ -47,9 +46,9 @@ public class AccountV3Controller {
         return createAccountCommand.getType() != null && createAccountCommand.getOwnerIds() != null && !createAccountCommand.getOwnerIds().isEmpty();
     }
 
-    private List<AccountRepresentation> createAccounts() {
-        final List<AccountRepresentation> accounts = new ArrayList<>();
-        final AccountRepresentation account = new AccountRepresentation();
+    private List<AccountResource> createAccounts() {
+        final List<AccountResource> accounts = new ArrayList<>();
+        final AccountResource account = new AccountResource();
         account.setId(UUID.randomUUID().toString());
         account.setLabel("Jan's zichtrekening");
         account.setType(AccountType.CHECKING);
