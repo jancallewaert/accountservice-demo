@@ -1,4 +1,4 @@
-package demo.rest.resources;
+package demo.rest.resources.v2;
 
 import demo.services.domain.accounts.AccountType;
 import demo.services.domain.shared.MoneyAmount;

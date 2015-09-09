@@ -1,6 +1,6 @@
 package demo.services;
 
-import demo.rest.resources.AccountResource;
+import demo.rest.resources.v2.AccountResource;
 import demo.services.domain.accounts.Account;
 import org.springframework.stereotype.Component;
 

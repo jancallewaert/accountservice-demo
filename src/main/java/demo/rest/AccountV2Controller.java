@@ -1,7 +1,7 @@
 package demo.rest;
 
-import demo.rest.resources.AccountResource;
 import demo.rest.resources.CreateAccountCommand;
+import demo.rest.resources.v2.AccountResource;
 import demo.services.domain.accounts.AccountType;
 import demo.services.domain.shared.MoneyAmount;
 import org.springframework.http.MediaType;

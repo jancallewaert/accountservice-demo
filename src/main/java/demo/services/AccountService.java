@@ -1,7 +1,7 @@
 package demo.services;
 
-import demo.rest.resources.AccountResource;
 import demo.rest.resources.CreateAccountCommand;
+import demo.rest.resources.v2.AccountResource;
 import demo.services.domain.accounts.Account;
 import demo.services.domain.accounts.AccountRepository;
 import demo.services.domain.shared.exceptions.BusinessException;
@@ -28,8 +28,13 @@ public class AccountService {
     }
 
     @Transactional(readOnly = true)
-    public List<AccountResource> getAccountRepresentations() {
+    public List<AccountResource> getAccountResources() {
         return accountRepository.getAccountRepresentations();
+    }
+
+    @Transactional(readOnly = true)
+    public List<demo.rest.resources.v6.AccountResource> getAccountResourcesHypermedia() {
+        return accountRepository.getAccountResourcesHypermedia();
     }
 
     public String create(CreateAccountCommand command) {

@@ -1,7 +1,7 @@
 package demo.rest;
 
-import demo.rest.resources.AccountResource;
 import demo.rest.resources.CreateAccountCommand;
+import demo.rest.resources.v2.AccountResource;
 import demo.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -24,7 +24,7 @@ public class AccountV5Controller {
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<AccountResource>> list() {
-        final List<AccountResource> accounts = accountService.getAccountRepresentations();
+        final List<AccountResource> accounts = accountService.getAccountResources();
         return ResponseEntity.ok(accounts);
     }
 

@@ -1,4 +1,4 @@
-package demo.rest.resources;
+package demo.rest.resources.v2;
 
 public class OwnerResource {
     private String id;
