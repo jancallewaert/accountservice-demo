@@ -1,10 +1,7 @@
 package demo;
 
 import demo.rest.resources.ErrorResource;
-import demo.services.domain.shared.exceptions.BusinessException;
-import demo.services.domain.shared.exceptions.ErrorCode;
-import demo.services.domain.shared.exceptions.ServiceException;
-import demo.services.domain.shared.exceptions.TechnicalException;
+import demo.services.domain.shared.exceptions.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +21,14 @@ public class GlobalControllerExceptionHandler {
 
     @Autowired
     private MessageSource messageSource;
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(UnknownResourceException.class)
+    @ResponseBody
+    public ErrorResource handleUnknownResource(UnknownResourceException e) {
+        LOGGER.info(e.getIdentifier() + " " + e.getErrorCode().name() + " " + e.getMessage(), e);
+        return new ErrorResource(e.getIdentifier(), localizeMessage(e));
+    }
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BusinessException.class)

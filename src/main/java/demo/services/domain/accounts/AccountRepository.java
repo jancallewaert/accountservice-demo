@@ -2,6 +2,7 @@ package demo.services.domain.accounts;
 
 import demo.rest.resources.v2.AccountResource;
 import demo.services.domain.shared.MoneyAmount;
+import demo.services.domain.shared.exceptions.UnknownResourceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -80,5 +81,29 @@ public class AccountRepository {
                     current.getOwners().add(rs.getString("owner_ids"));
                 });
         return representations;
+    }
+
+    public demo.rest.resources.v6.AccountResource getResourceById(String id) {
+        final Account account = getById(id);
+        final demo.rest.resources.v6.AccountResource accountResource = new demo.rest.resources.v6.AccountResource();
+        accountResource.add(entityLinks.linkToSingleResource(accountResource.getClass(), id));
+        accountResource.setLabel(account.getLabel());
+        accountResource.setBalance(account.getBalance());
+        accountResource.setIban(account.getIban());
+        accountResource.setOwners(account.getOwnerIds());
+        accountResource.setType(account.getType());
+        return accountResource;
+    }
+
+    public void delete(Account account) {
+        em.remove(account);
+    }
+
+    public Account getById(String id) {
+        final Account account = em.find(Account.class, id);
+        if (account == null) {
+            throw new UnknownResourceException();
+        }
+        return account;
     }
 }

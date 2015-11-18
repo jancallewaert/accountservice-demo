@@ -50,4 +50,12 @@ public class AccountService {
         return createAccountCommand.getType() != null && createAccountCommand.getOwnerIds() != null && !createAccountCommand.getOwnerIds().isEmpty();
     }
 
+    public demo.rest.resources.v6.AccountResource get(String id) {
+        return accountRepository.getResourceById(id);
+    }
+
+    public void delete(String id) {
+        Account account = accountRepository.getById(id);
+        accountRepository.delete(account);
+    }
 }
